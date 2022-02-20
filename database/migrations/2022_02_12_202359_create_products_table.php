@@ -23,6 +23,14 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->json('metadata');
 
+            $brand = DB::connection()->getQueryGrammar()->wrap('metadata->brand');
+            $table->string('brand')->storedAs($brand);
+            $table->foreign('brand')->references('uuid')->on('brands');
+
+            $image = DB::connection()->getQueryGrammar()->wrap('metadata->image');
+            $table->string('image')->storedAs($image);
+            $table->foreign('image')->references('uuid')->on('files');
+
             $table->timestamps();
             $table->softDeletes();
         });
