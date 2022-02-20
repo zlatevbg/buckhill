@@ -14,7 +14,7 @@ class BrandFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->sentence();
+        $title = $this->faker->unique()->brands();
 
         return [
             'uuid' => $this->faker->uuid(),

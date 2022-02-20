@@ -15,7 +15,7 @@ class OrderStatusFactory extends Factory
     {
         return [
             'uuid' => $this->faker->uuid(),
-            'title' => $this->faker->sentence(),
+            'title' => $this->faker->unique()->orderStatuses(),
         ];
     }
 }
