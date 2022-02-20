@@ -6,6 +6,11 @@ use Faker\Provider\Base;
 
 class PetShopProvider extends Base
 {
+    /**
+     * The names of the PetShop categories
+     *
+     * @var array<string>
+     */
     protected static $categories = [
         'Dry dog food',
         'Pet treats and chews',
@@ -24,6 +29,11 @@ class PetShopProvider extends Base
         'Pet toys',
     ];
 
+    /**
+     * The names of the PetShop brands
+     *
+     * @var array<string>
+     */
     protected static $brands = [
         'Alleva Equilibrium',
         'Alleva Holistic',
@@ -42,6 +52,11 @@ class PetShopProvider extends Base
         'JW Dog',
     ];
 
+    /**
+     * The names of the PetShop order statuses
+     *
+     * @var array<string>
+     */
     protected static $orderStatuses = [
         'Pending',
         'Awaiting Payment',

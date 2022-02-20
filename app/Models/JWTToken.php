@@ -25,7 +25,7 @@ class JWTToken extends Model
     /**
      * Get the user that owns the token.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

@@ -22,7 +22,7 @@ class OrderStatus extends Model
     /**
      * Get the orders with the order status.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders()
     {

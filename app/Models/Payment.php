@@ -32,7 +32,7 @@ class Payment extends Model
     /**
      * Get the orders for the payment method.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders()
     {

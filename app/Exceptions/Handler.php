@@ -51,6 +51,15 @@ class Handler extends ExceptionHandler
         });
     }
 
+    /**
+     * Send response using abort helper method
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $code
+     * @param  string  $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendResponse($request, $code, $message)
     {
         if ($request->expectsJson()) {

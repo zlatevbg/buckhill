@@ -29,6 +29,7 @@ class AdminController extends Controller
             throw new TokenInvalidException('Unauthorized');
         }
 
+        /** @var User */
         $user = Auth::user();
         $user->last_login_at = Carbon::now();
         $user->save();
@@ -52,6 +53,7 @@ class AdminController extends Controller
      */
     public function logout(JWTToken $jwtToken)
     {
+        /** @var User */
         $user = Auth::user();
         $jwtToken::where('user_id', $user->id)->delete();
         Auth::logout();

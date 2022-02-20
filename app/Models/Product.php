@@ -37,7 +37,7 @@ class Product extends Model
     /**
      * Get the category that owns the product.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
@@ -47,7 +47,7 @@ class Product extends Model
     /**
      * Get the brand of the product.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function brands()
     {
@@ -57,7 +57,7 @@ class Product extends Model
     /**
      * Get the image of the product.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function file()
     {

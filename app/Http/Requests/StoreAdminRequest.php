@@ -16,7 +16,7 @@ class StoreAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user();
+        return (bool) Auth::user();
     }
 
     protected function failedValidation(Validator $validator)

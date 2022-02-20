@@ -54,7 +54,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get the orders for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders()
     {
@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get the active JWT token.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function token()
     {
@@ -73,6 +73,8 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Get the user's full name.
+     *
+     * @param string $value
      *
      * @return string
      */

@@ -17,21 +17,24 @@ class AuthenticateWithJWT extends BaseMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param  string|null $is_admin
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, $is_admin = null)
     {
         $jwt = JWTAuth::parseToken();
+        /** @var \App\Models\User */
         $user = $jwt->authenticate();
 
         $is_admin = $is_admin == 'admin';
 
-        if ($user && $user->is_admin == $is_admin) {
+        if ($user->is_admin == $is_admin) {
             $token = $user->token;
 
             if (!$token) {
                 throw new TokenInvalidException('Authorization Token not found');
-            } elseif ($token->unique_id != hash('sha256', $jwt->getToken())) {
+            } elseif ($token->unique_id != hash('sha256', (string) $jwt->getToken())) {
                 throw new TokenExpiredException('Token is Expired');
             }
         } else {

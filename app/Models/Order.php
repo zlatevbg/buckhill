@@ -39,7 +39,7 @@ class Order extends Model
     /**
      * Get the user that owns the order.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -49,7 +49,7 @@ class Order extends Model
     /**
      * Get the order status for the order.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function orderStatus()
     {
@@ -59,7 +59,7 @@ class Order extends Model
     /**
      * Get the payment details for the order.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payment()
     {

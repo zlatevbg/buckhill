@@ -25,7 +25,7 @@ class File extends Model
     /**
      * Get the products for the image.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function products()
     {
