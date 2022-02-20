@@ -54,20 +54,12 @@ Route::prefix('category')->group(function () {
 Route::get('file/{file:uuid}', [FileController::class, 'download']);
 Route::post('file/upload', [FileController::class, 'upload']);
 
-// User protected routes
-Route::middleware('auth.jwt')->group(function () {
+// Admin protected routes
+Route::middleware('auth.jwt:admin')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('logout', [AdminController::class, 'logout']);
         Route::get('user-listing', [AdminController::class, 'listUsers']);
         Route::post('create', [AdminController::class, 'create']);
-    });
-
-    Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'index']);
-        Route::delete('/', [UserController::class, 'delete']);
-        Route::get('orders', [UserController::class, 'listOrders']);
-        Route::get('logout', [UserController::class, 'logout']);
-        Route::put('edit', [UserController::class, 'edit']);
     });
 
     Route::prefix('brand')->group(function () {
@@ -86,14 +78,6 @@ Route::middleware('auth.jwt')->group(function () {
         Route::get('/', [OrderController::class, 'index']);
         Route::get('dashboard', [OrderController::class, 'dashboard']);
         Route::get('shipment-locator', [OrderController::class, 'shipmentLocator']);
-    });
-
-    Route::prefix('order')->group(function () {
-        Route::get('{uuid}', [OrderController::class, 'index']);
-        Route::get('{uuid}/download', [OrderController::class, 'download']);
-        Route::post('create', [OrderController::class, 'create']);
-        Route::put('{uuid}', [OrderController::class, 'edit']);
-        Route::delete('{uuid}', [OrderController::class, 'delete']);
     });
 
     Route::get('order-statuses', [OrderStatusController::class, 'index']);
@@ -118,5 +102,24 @@ Route::middleware('auth.jwt')->group(function () {
         Route::post('create', [ProductController::class, 'create']);
         Route::put('{product:uuid}', [ProductController::class, 'edit']);
         Route::delete('{product:uuid}', [ProductController::class, 'delete']);
+    });
+});
+
+// User protected routes
+Route::middleware('auth.jwt')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::delete('/', [UserController::class, 'delete']);
+        Route::get('orders', [UserController::class, 'listOrders']);
+        Route::get('logout', [UserController::class, 'logout']);
+        Route::put('edit', [UserController::class, 'edit']);
+    });
+
+    Route::prefix('order')->group(function () {
+        Route::get('{uuid}', [OrderController::class, 'index']);
+        Route::get('{uuid}/download', [OrderController::class, 'download']);
+        Route::post('create', [OrderController::class, 'create']);
+        Route::put('{uuid}', [OrderController::class, 'edit']);
+        Route::delete('{uuid}', [OrderController::class, 'delete']);
     });
 });

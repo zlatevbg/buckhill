@@ -19,12 +19,14 @@ class AuthenticateWithJWT extends BaseMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $is_admin = null)
     {
         $jwt = JWTAuth::parseToken();
         $user = $jwt->authenticate();
 
-        if ($user) {
+        $is_admin = $is_admin == 'admin';
+
+        if ($user && $user->is_admin == $is_admin) {
             $token = $user->token;
 
             if (!$token) {
