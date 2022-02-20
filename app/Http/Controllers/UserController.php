@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function login(Request $request, JWTToken $jwtToken)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password') + ['is_admin' => 0];
 
         if (!$token = JWTAuth::attempt($credentials)) {
             throw new TokenInvalidException('Unauthorized');
