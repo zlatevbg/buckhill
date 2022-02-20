@@ -28,3 +28,14 @@ class Payment extends Model
     protected $casts = [
         'details' => 'json',
     ];
+
+    /**
+     * Get the orders for the payment method.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+}

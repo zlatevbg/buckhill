@@ -21,3 +21,14 @@ class File extends Model
         'size',
         'type',
     ];
+
+    /**
+     * Get the products for the image.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'metadata->image', 'uuid');
+    }
+}

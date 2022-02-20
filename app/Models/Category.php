@@ -19,3 +19,14 @@ class Category extends Model
         'title',
         'slug',
     ];
+
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_uuid', 'uuid');
+    }
+}

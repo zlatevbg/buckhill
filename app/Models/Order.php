@@ -35,3 +35,34 @@ class Order extends Model
         'products' => 'json',
         'address' => 'json',
     ];
+
+    /**
+     * Get the user that owns the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the order status for the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function orderStatus()
+    {
+        return $this->belongsTo(OrderStatus::class);
+    }
+
+    /**
+     * Get the payment details for the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+}

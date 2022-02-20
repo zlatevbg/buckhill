@@ -33,3 +33,34 @@ class Product extends Model
         'deleted_at' => 'datetime',
         'metadata' => 'json',
     ];
+
+    /**
+     * Get the category that owns the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_uuid', 'uuid');
+    }
+
+    /**
+     * Get the brand of the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function brands()
+    {
+        return $this->belongsTo(Brand::class, 'brand', 'uuid');
+    }
+
+    /**
+     * Get the image of the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function file()
+    {
+        return $this->belongsTo(File::class, 'image', 'uuid');
+    }
+}

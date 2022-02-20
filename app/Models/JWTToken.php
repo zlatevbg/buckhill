@@ -21,3 +21,14 @@ class JWTToken extends Model
         'last_used_at' => 'datetime',
         'refreshed_at' => 'datetime',
     ];
+
+    /**
+     * Get the user that owns the token.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

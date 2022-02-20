@@ -48,4 +48,34 @@ use Laravel\Sanctum\HasApiTokens;
         'email_verified_at' => 'datetime',
         'last_login_at' => 'datetime',
     ];
+
+    /**
+     * Get the orders for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the active JWT token.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function token()
+    {
+        return $this->hasOne(JWTToken::class);
+    }
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getNameAttribute($value)
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }

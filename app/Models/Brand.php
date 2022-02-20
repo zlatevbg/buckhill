@@ -19,3 +19,14 @@ class Brand extends Model
         'title',
         'slug',
     ];
+
+    /**
+     * Get the products for the brand.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'metadata->brand', 'uuid');
+    }
+}
