@@ -10,6 +10,8 @@ use App\Models\JWTToken;
 use App\Http\Requests\StoreAdminRequest;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use App\Http\Resources\AdminResource;
+use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -84,8 +86,10 @@ class AdminController extends Controller
         }
 
         $users = $users->paginate($request->input('limit', 10));
+        $usersData = $users->toArray();
+        $usersData['data'] = UserResource::collection($users->items());
 
-        return response()->json($users);
+        return response()->json($usersData);
     }
 
     /**
@@ -108,6 +112,6 @@ class AdminController extends Controller
             'is_marketing' => $request->input('marketing'),
         ]);
 
-        return response()->json($user);
+        return response()->json(new AdminResource($user));
     }
 }
