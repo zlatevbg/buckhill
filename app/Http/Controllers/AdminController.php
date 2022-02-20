@@ -92,7 +92,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(StoreAdminRequest $request)
     {
         $user = User::create([
             'uuid' => Str::uuid(),
