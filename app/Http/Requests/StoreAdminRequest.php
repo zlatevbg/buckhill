@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreAdminRequest extends FormRequest
 {
@@ -15,6 +17,11 @@ class StoreAdminRequest extends FormRequest
     public function authorize()
     {
         return Auth::user();
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['errors' => $validator->errors()], 422));
     }
 
     /**
