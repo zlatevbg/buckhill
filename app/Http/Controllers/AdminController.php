@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\JWTToken;
+use App\Http\Requests\LoginAdminRequest;
 use App\Http\Requests\StoreAdminRequest;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
@@ -21,7 +22,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request, JWTToken $jwtToken)
+    public function login(LoginAdminRequest $request, JWTToken $jwtToken)
     {
         $credentials = $request->only('email', 'password') + ['is_admin' => 1];
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\JWTToken;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\ResetUserPasswordRequest;
@@ -27,7 +28,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request, JWTToken $jwtToken)
+    public function login(LoginUserRequest $request, JWTToken $jwtToken)
     {
         $credentials = $request->only('email', 'password') + ['is_admin' => 0];
 
