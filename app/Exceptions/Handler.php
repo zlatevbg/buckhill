@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -42,30 +43,14 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function (Throwable $e, $request) {
+        $this->renderable(function (Throwable $e) {
             if ($e instanceof MethodNotAllowedHttpException) {
-                $this->sendResponse($request, 404, $e->getMessage());
+                return response()->json(['error' => $e->getMessage()], 404);
             } elseif ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException || $e instanceof JWTException) {
-                $this->sendResponse($request, 401, $e->getMessage());
+                return response()->json(['error' => $e->getMessage()], 401);
+            } elseif ($e instanceof AccessDeniedHttpException) {
+                return response()->json(['error' => $e->getMessage()], 403);
             }
         });
-    }
-
-    /**
-     * Send response using abort helper method
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $code
-     * @param  string  $message
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sendResponse($request, $code, $message)
-    {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => $message], $code);
-        }
-
-        abort($code, $message);
     }
 }
