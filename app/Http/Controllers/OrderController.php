@@ -139,6 +139,8 @@ class OrderController extends Controller
      */
     public function create(StoreOrderRequest $request)
     {
+        $price = mt_rand(10 * 10, 1000 * 10) / 10;
+
         $order = Order::create([
             'uuid' => Str::uuid(),
             'user_id' => $request->user()->id,
@@ -146,7 +148,8 @@ class OrderController extends Controller
             'payment_id' => Payment::where('uuid', $request->input('payment_uuid'))->value('id'),
             'products' => $request->input('products'),
             'address' => $request->input('address'),
-            'amount' => mt_rand(10 * 10, 1000 * 10) / 10,
+            'delivery_fee' => ($price > 500 ? 15 : null),
+            'amount' => $price,
         ]);
 
         return response()->json(new OrderResource($order));

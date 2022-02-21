@@ -22,6 +22,8 @@ class OrderFactory extends Factory
             ]);
         }
 
+        $price = $this->faker->randomFloat(2, 10, 1000);
+
         return [
             'user_id' => \App\Models\User::where('email', 'user@buckhill.co.uk')->value('id'),
             'order_status_id' => \App\Models\OrderStatus::all()->random()->id,
@@ -32,8 +34,8 @@ class OrderFactory extends Factory
                 "billing" => $this->faker->address(),
                 "shipping" => $this->faker->address(),
             ],
-            'delivery_fee' => $this->faker->randomFloat(2, 1, 100),
-            'amount' => $this->faker->randomFloat(2, 10, 1000),
+            'delivery_fee' => ($price > 500 ? 15 : null),
+            'amount' => $price,
             'shipped_at' => date('Y-m-d H:i:s', strtotime('-' . $this->faker->randomDigitNot(0) . ' year ' . $this->faker->randomDigitNot(0) . ' month ' . $this->faker->randomDigitNot(0) . ' day')),
         ];
     }
