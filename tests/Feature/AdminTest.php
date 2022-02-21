@@ -12,7 +12,7 @@ class AdminTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_admin_login_validation_fail()
+    public function testAdminLoginValidationFail()
     {
         $response = $this->postJson('/api/v1/admin/login', [
             'email' => 'xxx@buckhill.co.uk',
@@ -22,7 +22,7 @@ class AdminTest extends TestCase
         $response->assertStatus(422)->assertJson(fn (AssertableJson $json) => $json->has('errors'));
     }
 
-    public function test_admin_login_fail()
+    public function testAdminLoginFail()
     {
         $response = $this->postJson('/api/v1/admin/login', [
             'email' => 'admin@buckhill.co.uk',
@@ -32,7 +32,7 @@ class AdminTest extends TestCase
         $response->assertStatus(401)->assertJson(['error' => 'Unauthorized']);
     }
 
-    public function test_admin_login_success()
+    public function testAdminLoginSuccess()
     {
         $response = $this->postJson('/api/v1/admin/login', [
             'email' => 'admin@buckhill.co.uk',
@@ -43,7 +43,7 @@ class AdminTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    public function test_admin_create()
+    public function testAdminCreate()
     {
         $token = $this->authenticate('admin@buckhill.co.uk', 'admin');
         $headers = ['Authorization' => "Bearer $token"];
@@ -60,7 +60,7 @@ class AdminTest extends TestCase
         $response->assertStatus(200)->assertSee('id');
     }
 
-    public function test_admin_user_listing()
+    public function testAdminUserListing()
     {
         $token = $this->authenticate('admin@buckhill.co.uk', 'admin');
 
@@ -69,7 +69,7 @@ class AdminTest extends TestCase
         $response->assertStatus(200)->assertSee('total')->assertJsonCount(5, 'data');
     }
 
-    public function test_admin_logout()
+    public function testAdminLogout()
     {
         $token = $this->authenticate('admin@buckhill.co.uk', 'admin');
 
@@ -80,7 +80,7 @@ class AdminTest extends TestCase
         $response->assertStatus(200)->assertJson(['message' => 'Successfully logged out']);
     }
 
-    public function test_user_cant_access_admin_page()
+    public function testUserCantAccessAdminPage()
     {
         $token = $this->authenticate('user@buckhill.co.uk', 'userpassword', 'user');
 

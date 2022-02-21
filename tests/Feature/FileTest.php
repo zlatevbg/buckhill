@@ -11,7 +11,7 @@ class FileTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_images_can_be_uploaded()
+    public function testImagesCanBeUploaded()
     {
         Storage::fake('local');
 
@@ -26,7 +26,7 @@ class FileTest extends TestCase
         Storage::disk('local')->assertExists('public/pet-shop/' . $file->hashName());
     }
 
-    public function test_images_can_be_downloaded()
+    public function testImagesCanBeDownloaded()
     {
         Storage::fake('local');
 

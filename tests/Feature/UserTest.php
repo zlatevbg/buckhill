@@ -15,7 +15,7 @@ class UserTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_user_login_validation_fail()
+    public function testUserLoginValidationFail()
     {
         $response = $this->postJson('/api/v1/user/login', [
             'email' => 'xxx@buckhill.co.uk',
@@ -25,7 +25,7 @@ class UserTest extends TestCase
         $response->assertStatus(422)->assertJson(fn (AssertableJson $json) => $json->has('errors'));
     }
 
-    public function test_user_login_fail()
+    public function testUserLoginFail()
     {
         $response = $this->postJson('/api/v1/user/login', [
             'email' => 'user@buckhill.co.uk',
@@ -35,7 +35,7 @@ class UserTest extends TestCase
         $response->assertStatus(401)->assertJson(['error' => 'Unauthorized']);
     }
 
-    public function test_user_login_success()
+    public function testUserLoginSuccess()
     {
         $response = $this->postJson('/api/v1/user/login', [
             'email' => 'user@buckhill.co.uk',
@@ -46,7 +46,7 @@ class UserTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    public function test_user_create()
+    public function testUserCreate()
     {
         $user = User::factory()->make([
             'password' => 'userpassword',
@@ -60,7 +60,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertSee('id');
     }
 
-    public function test_user_get_info()
+    public function testUserGetInfo()
     {
         $token = $this->authenticate('user@buckhill.co.uk', 'userpassword');
 
@@ -69,7 +69,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(['id' => 2]);
     }
 
-    public function test_user_edit()
+    public function testUserEdit()
     {
         $user = User::where('is_admin', 0)->where('email', '!=', 'user@buckhill.co.uk')->inRandomOrder()->first();
 
@@ -89,7 +89,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(['last_name' => $user['last_name'] . ' Edited']);
     }
 
-    public function test_user_get_orders()
+    public function testUserGetOrders()
     {
         $token = $this->authenticate('user@buckhill.co.uk', 'userpassword');
 
@@ -104,7 +104,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertSee('total')->assertJsonCount(5, 'data');
     }
 
-    public function test_user_forgot_password()
+    public function testUserForgotPassword()
     {
         $response = $this->postJson('/api/v1/user/forgot-password', [
             'email' => 'user@buckhill.co.uk',
@@ -113,7 +113,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(fn (AssertableJson $json) => $json->has('reset_token'));
     }
 
-    public function test_user_reset_password()
+    public function testUserResetPassword()
     {
         $user = User::where('email', 'user@buckhill.co.uk')->first();
         $token = Password::broker()->createToken($user);
@@ -128,7 +128,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(['success' => trans(Password::PASSWORD_RESET)]);
     }
 
-    public function test_user_logout()
+    public function testUserLogout()
     {
         $token = $this->authenticate('user@buckhill.co.uk', 'userpassword');
 
@@ -139,7 +139,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(['message' => 'Successfully logged out']);
     }
 
-    public function test_user_delete()
+    public function testUserDelete()
     {
         $user = User::factory()->create([
             'email' => 'zlatevbg@gmail.com',
@@ -158,7 +158,7 @@ class UserTest extends TestCase
         $response->assertStatus(200)->assertJson(['success' => true]);
     }
 
-    public function test_user_1_cant_access_user_2_products()
+    public function testUser1CantAccessUser2Products()
     {
         // Login first user
         $token1 = $this->authenticate('user@buckhill.co.uk', 'userpassword');
@@ -185,7 +185,7 @@ class UserTest extends TestCase
         $response->assertStatus(403)->assertJson(['error' => 'This action is unauthorized.']);
     }
 
-    public function test_admin_cant_access_user_page()
+    public function testAdminCantAccessUserPage()
     {
         $token = $this->authenticate('admin@buckhill.co.uk', 'admin', 'admin');
 
